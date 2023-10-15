@@ -1,4 +1,4 @@
-# Mod "Give Elite Item" para Risk of Rain 2  ![Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
+# Mod "PlayWithEliteItem" para Risk of Rain 2  ![Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
 
 
 **Prontos para uma nova aventura?**
@@ -8,7 +8,7 @@ Quando o jogo começa, os jogadores receberão automaticamente um equipamento de
 
 ## Descrição
 
-O mod "Give Elite Item" foi criado por Hélio Conde. Ao iniciar o jogo com o mod ativado, os jogadores recebem automaticamente um equipamento de elite aleatório no slot 2 de equipamento. Isso adiciona uma camada extra de desafio e diversão à jogabilidade, permitindo que os jogadores explorem estratégias únicas com base no equipamento de elite que recebem.
+O mod "PlayWithEliteItem" foi criado por Hélio Conde. Ao iniciar o jogo com o mod ativado, os jogadores recebem automaticamente um equipamento de elite aleatório no slot 2 de equipamento. Isso adiciona uma camada extra de desafio e diversão à jogabilidade, permitindo que os jogadores explorem estratégias únicas com base no equipamento de elite que recebem.
 
 Lembrando que o equipamento de elite atribuído é selecionado aleatoriamente, tornando cada partida única e imprevisível.
 
@@ -21,7 +21,7 @@ Lembrando que o equipamento de elite atribuído é selecionado aleatoriamente, t
 
 ## Uso
 
-Com o mod "GiveEliteItem" ativado, os jogadores não precisam realizar ações adicionais para receber um equipamento de elite. Automaticamente, ao iniciar o jogo, um equipamento de elite aleatório será atribuído ao slot 2 de equipamento de cada jogador. Isso adiciona uma camada de imprevisibilidade e estratégia ao início de cada partida, permitindo que os jogadores se adaptem a diferentes situações com base no equipamento de elite recebido.
+Com o mod "PlayWithEliteItem" ativado, os jogadores não precisam realizar ações adicionais para receber um equipamento de elite. Automaticamente, ao iniciar o jogo, um equipamento de elite aleatório será atribuído ao slot 2 de equipamento de cada jogador. Isso adiciona uma camada de imprevisibilidade e estratégia ao início de cada partida, permitindo que os jogadores se adaptem a diferentes situações com base no equipamento de elite recebido.
 
 Aproveite a diversão e a surpresa de descobrir qual equipamento de elite você e seus companheiros de equipe receberão no início de cada partida.
 
