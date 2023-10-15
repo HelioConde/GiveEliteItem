@@ -1,4 +1,4 @@
-# Mod "Give Elite Item" para Risk of Rain 2![Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
+# Mod "Give Elite Item" para Risk of Rain 2!  [Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
 
 
 **Prontos para uma nova aventura?**
@@ -8,7 +8,7 @@ Quando o jogo começa, os jogadores receberão automaticamente um equipamento de
 
 ## Descrição
 
-O mod "Give Elite Item" foi criado por Hélio Conde. Ao iniciar o jogo com o mod "GiveEliteItem" ativado, os jogadores recebem automaticamente um equipamento de elite aleatório no slot 2 de equipamento. Isso adiciona uma camada extra de desafio e diversão à jogabilidade, permitindo que os jogadores explorem estratégias únicas com base no equipamento de elite que recebem.
+O mod "Give Elite Item" foi criado por Hélio Conde. Ao iniciar o jogo com o mod ativado, os jogadores recebem automaticamente um equipamento de elite aleatório no slot 2 de equipamento. Isso adiciona uma camada extra de desafio e diversão à jogabilidade, permitindo que os jogadores explorem estratégias únicas com base no equipamento de elite que recebem.
 
 Lembrando que o equipamento de elite atribuído é selecionado aleatoriamente, tornando cada partida única e imprevisível.
 
@@ -32,7 +32,6 @@ Se desejar contribuir para o desenvolvimento deste mod, sinta-se à vontade para
 ## Créditos
 
 - AlchemyFlame (Hélio Conde): Criador do mod
-- [Thunderstore.io](https://thunderstore.io/): Plataforma de distribuição de mods
 
 ## Licença
 
