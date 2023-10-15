@@ -1,4 +1,4 @@
-# Mod "Give Elite Item" para Risk of Rain 2!  [Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
+# Mod "Give Elite Item" para Risk of Rain 2  ![Versão do Mod](https://img.shields.io/badge/Versão-1.0.0-brightgreen)
 
 
 **Prontos para uma nova aventura?**
