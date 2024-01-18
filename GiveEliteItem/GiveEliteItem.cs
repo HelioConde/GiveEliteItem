@@ -17,34 +17,34 @@ using static RoR2.MasterSpawnSlotController;
 
 namespace GiveEliteItem
 {
+    [NetworkCompatibility(CompatibilityLevel.NoNeedForSync)]
+    [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
+    [BepInDependency("com.rob.MonsterVariants", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.Nebby.VarianceAPI", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.ThinkInvisible.TILER2", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.ThinkInvisible.ClassicItems", BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency("com.DestroyedClone.AncientScepter", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(R2API.R2API.PluginGUID)]
     [BepInDependency("com.KingEnderBrine.InLobbyConfig", BepInDependency.DependencyFlags.SoftDependency)]
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [NetworkCompatibility(CompatibilityLevel.NoNeedForSync, VersionStrictness.DifferentModVersionsAreOk)]
+
     public class GiveEliteItem : BaseUnityPlugin
     {
         public static PluginInfo PInfo { get; private set; }
         public static GiveEliteItem instance;
+        private bool canUseEquipment = true;
 
         public const string PluginGUID = PluginAuthor + "." + PluginName;
         public const string PluginAuthor = "AlchemyFlame";
-        public const string PluginName = "GiveEliteItem";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginName = "PlayWithEliteItem";
+        public const string PluginVersion = "1.0.1";
 
-        private Dictionary<string, CharacterMaster> playerNameToMaster = new Dictionary<string, CharacterMaster>();
-        private Dictionary<string, int> playerNameToSlot = new Dictionary<string, int>();
         public class PlayerStorage
         {
             public NetworkUser user = null;
             public CharacterMaster master = null;
-            public GameObject origPrefab = null;
-            public bool isDead = false;
-            public Inventory inventory = null;
-            public bool giftedAffix = false;
-            public bool hadAncientScepter = false;
+
             public EquipmentIndex previousEquipment = EquipmentIndex.None;
-            public NetworkUser lastDamagedBy = null;
-            public float lastDamagedTime = 0;
             public string chosenEquipment = null; // Adicione esta linha
             public uint chosenEquipmentSlot = 1; // Adicione esta linha
         }
@@ -52,7 +52,6 @@ namespace GiveEliteItem
 
         // The actual class to use.
         public List<PlayerStorage> playerStorage = new List<PlayerStorage>();
-        private List<string> respawnMethodCheck = new List<string>() { "RefightRespawn" };
         public float respawnTime; // For an added penalty per death.
 
         private string[] equipmentOptions = new string[]
@@ -101,25 +100,8 @@ namespace GiveEliteItem
                                 PlayerStorage playerStorage = FindPlayerStorageForUser(networkUser);
                                 if (playerStorage != null)
                                 {
-                                    // Você pode acessar o PlayerStorage e fazer o que precisa com ele.
-                                    // Exemplo:
-                                    EquipmentIndex chosenEquipmentIndex = EquipmentCatalog.FindEquipmentIndex(playerStorage.chosenEquipment);
-                                    if (playerStorage.chosenEquipmentSlot == 1)
-                                    {
-                                        playerStorage.chosenEquipmentSlot = 0;
-                                        uint slot = 0;
-                                        uint slot2 = 1;
-                                        playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(playerCharacterMaster.master.inventory.GetEquipment(slot).equipmentIndex, 1);
-                                        playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(playerCharacterMaster.master.inventory.GetEquipment(slot2).equipmentIndex, 0);
-                                    } else
-                                    {
-                                        playerStorage.chosenEquipmentSlot = 1;
-                                        uint slot = 1;
-                                        uint slot2 = 0;
-                                        playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(playerCharacterMaster.master.inventory.GetEquipment(slot).equipmentIndex, 0);
-                                        playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(playerCharacterMaster.master.inventory.GetEquipment(slot2).equipmentIndex, 1);
-                                    }
-
+                                    // Adicione um atraso de 1 segundo antes da troca de equipamento.
+                                    instance.StartCoroutine(DelayedEquipmentSwitch(playerCharacterMaster, playerStorage));
                                 }
                             }
                         }
@@ -128,6 +110,44 @@ namespace GiveEliteItem
 
                 return orig(self, equipmentIndex);
             };
+        }
+
+        private IEnumerator DelayedEquipmentSwitch(PlayerCharacterMasterController playerCharacterMaster, PlayerStorage playerStorage)
+        {
+            canUseEquipment = false; // Desativa o uso do equipamento
+            yield return new WaitForSeconds(0.3f);
+
+            uint slot = 0;
+            RoR2.EquipmentIndex user1 = playerCharacterMaster.master.inventory.GetEquipment(slot).equipmentIndex;
+            uint slot2 = 1;
+            RoR2.EquipmentIndex user2 = playerCharacterMaster.master.inventory.GetEquipment(slot2).equipmentIndex;
+
+            Debug.Log("Adicionando ao jogadores...");
+            Debug.Log(playerCharacterMaster.master.inventory.GetEquipment(slot).equipmentIndex);
+            Debug.Log(playerCharacterMaster.master.inventory.GetEquipment(slot2).equipmentIndex);
+
+            if (playerStorage.chosenEquipmentSlot == 1)
+            {
+                if (user1 == (RoR2.EquipmentIndex)3)
+                {
+                    playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(user2, 0);
+                    playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(RoR2.EquipmentIndex.None, 1);
+                    canUseEquipment = true; // Ativa o uso do equipamento novamente
+                    yield break;
+                }
+
+                playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(user2, 0);
+                playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(user1, 1);
+                playerStorage.chosenEquipmentSlot = 0;
+            }
+            else
+            {
+                playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(user2, 0);
+                playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(user1, 1);
+                playerStorage.chosenEquipmentSlot = 1;
+            }
+
+            canUseEquipment = true; // Ativa o uso do equipamento novamente
         }
 
         private PlayerStorage FindPlayerStorageForUser(NetworkUser user)
@@ -186,8 +206,6 @@ namespace GiveEliteItem
                 PlayerStorage newPlayer = new PlayerStorage();
                 if (playerCharacterMaster.networkUser) newPlayer.user = playerCharacterMaster.networkUser;
                 if (playerCharacterMaster.master) newPlayer.master = playerCharacterMaster.master;
-                if (playerCharacterMaster.master.bodyPrefab) newPlayer.origPrefab = playerCharacterMaster.master.bodyPrefab;
-                if (playerCharacterMaster.master.inventory) newPlayer.inventory = new Inventory();
 
 
                 System.Random random = new System.Random();
@@ -209,8 +227,7 @@ namespace GiveEliteItem
 
                 if (playerCharacterMaster.master.inventory)
                 {
-                    playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(EquipmentCatalog.FindEquipmentIndex(newPlayer.chosenEquipment), newPlayer.chosenEquipmentSlot);
-                    playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(EquipmentCatalog.FindEquipmentIndex("Scanner"), 0);
+                    playerCharacterMaster.master.inventory.SetEquipmentIndexForSlot(EquipmentCatalog.FindEquipmentIndex(newPlayer.chosenEquipment), 1);
                 }
 
                 Debug.Log(newPlayer.chosenEquipment + " adicionado ao Jogador!");

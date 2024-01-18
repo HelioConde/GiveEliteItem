@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>GiveEliteItem</id>
+    <version>1.0.0</version>
+    <authors>GiveEliteItem</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="bepinex.core" version="5.4.21" exclude="Build,Analyzers" />
+        <dependency id="r2api" version="5.0.5" exclude="Build,Analyzers" />
+        <dependency id="riskofrain2.gamelibs" version="1.2.4-r.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\CONDE\source\ROR2\GiveEliteItem\GiveEliteItem\bin\Debug\netstandard2.0\GiveEliteItem.dll" target="lib\netstandard2.0\GiveEliteItem.dll" />
+  </files>
+</package>
